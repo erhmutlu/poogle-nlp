@@ -1,7 +1,7 @@
 # poogle-nlp
 NLP Tool for Poogle Project
 
-poogle-nlp is a project for detecting intent from turkish sentences. I have tried to used elasticsearch indexing for solving this problem. Project developers must set specific mappings to es given below.
+poogle-nlp is a project for detecting intent from Turkish sentences. I have tried to used elasticsearch indexing for solving this problem. Project developers must set specific mappings to es given below.
 
 ##### Requirements
 1. elasticsearch 1.6
@@ -12,7 +12,7 @@ poogle-nlp is a project for detecting intent from turkish sentences. I have trie
 ##### Elasticsearch Documents
 1. Entity
 
-An entity is like a variable, it has 3 field: entity_key, entity_synonyms, value. 
+An entity is like a variable, it has 3 fields: entity_key, entity_synonyms, value. 
 Example;
 ```json
 {
@@ -22,7 +22,7 @@ Example;
 }
 ```
 
-According to above entity object, basically İstanbul and Megakent are `synonym`. If in a sentence one of them appears, it will hit this entity object.
+According to above entity object, basically İstanbul and Megakent are `synonyms`. If in a sentence one of them appears, it will hit this entity object.
 
 `value` field is for later calculations, for example a user can refer to İstanbul with Megakent, but thirdparty weather api's are waiting for İstanbul as a city request.
 
@@ -30,7 +30,7 @@ According to above entity object, basically İstanbul and Megakent are `synonym`
 
 2. Intent
 
-An intent refers to sentences system can understand or can make an inference.
+An intent refers to actions of sentences system can understand or can make an inference.
 Example;
 
 ```json
@@ -162,6 +162,7 @@ user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?"
 1. Eliminate entities from sentence
     entities will be used for query to `params` field of an intent. Non-entity part of sentence will be used for query to `sentence` field of an intent.
 1. Query to Elasticsearch for Intent
+
     First Simple Rule:
         Entities MUST be match to params of intent.
         Other non-entity words MAY match or NOT.
