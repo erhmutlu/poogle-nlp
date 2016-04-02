@@ -107,8 +107,60 @@ Api response:
 
 
 ##### What about numbers ?
-Indexing all numbers into elasticsearch is not convenient way, I have written a cool tool to detect numbers in sentence. It can be in numberical format, or word format, or mixed.
+Indexing all numbers as entities into elasticsearch is not convenient way, I have written a cool tool to detect numbers in sentence. It can be in numberical format, or word format, or mixed.
 
 Now, this tool can detect at most `dokuz yüz doksan dokuz milyon dokuz yüz doksan dokuz bin dokuz yüz doksan dokuz` or its some mixed shape. But it can be developed to higher numbers later. However, there is not maximum limit to detect if the number contains only digits!
 
 [/service/apps/defaultapp/tools/number](https://github.com/erhmutlu/poogle-nlp/blob/master/service/apps/defaultapp/tools/number.py)
+
+##### Poogle-Nlp Algorithm
+I will tell the algorithm by showing an example.
+
+```
+user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?" 
+```
+1. Clear Input
+    Clear punctiation signs(:.,?)
+    Clear extra whitespaces "  " -> " "
+1. Detect Entities
+    1. Firstly Detect Numbers
+    ```
+    [
+        {
+            "entity_synonyms": [3, u'3'],
+            "value": 3,
+            "entity_key": "@Number"
+        },
+        {
+            "entity_synonyms": [16, u'16'],
+            "value": 16,
+            "entity_key": "@Number"
+        },
+        {
+            "entity_synonyms": [45, u'45'],
+            "value": 45,
+            "entity_key": "@Number"
+        }
+    ]
+    ```
+    
+    2. Detect Entities using Elasticsearch
+    ```
+    [
+        {
+            "entity_synonyms": ["Nisan"],
+            "value": 4,
+            "entity_key": "@Month"
+        },
+        {
+            "entity_synonyms": [16, u'16'],
+            "value": 16,
+            "entity_key": "@Number"
+        },
+        {
+            "entity_synonyms": [45, u'45'],
+            "value": 45,
+            "entity_key": "@Number"
+        }
+    ]
+    ```
