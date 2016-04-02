@@ -106,4 +106,10 @@ Api response:
 5. Asciifolding Filter
 
 
+##### What about numbers ?
+Indexing all numbers into elasticsearch is not convenient way, I have written a small tool to detect numbers in sentence. It can be in numberic format, or digital, or mixed.
+
+Now, this tool can detect at most `dokuz yüz doksan dokuz milyon dokuz yüz doksan dokuz bin dokuz yüz doksan dokuz` or its some mixed shape. But it can be developed to higher numbers. Also, there is now maximum limit to detect if the number contains only digits!
+
+
 
