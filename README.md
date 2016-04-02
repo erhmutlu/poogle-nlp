@@ -97,6 +97,6 @@ min:2, max:3
 Shingle filter is used for matching entity key which means;
 ```
 entity_synonym -> Erhan Mutlu
-Erhan will not match to below synonym. Erhan Mutlu will be hit!
+Erhan will not match to above synonym. Erhan Mutlu will be hit!
 ```
 
