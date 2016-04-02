@@ -92,14 +92,11 @@ Api response:
 
 1. Shingle Filter
     
-    min:2
+min:2, max:3
 
-    max:3
-
-    Shingle filter is used for matching entity key which means;
-
-    `entity_synonym -> Erhan Mutlu`
-
-    `Erhan` will not match to below synonym. `Erhan Mutlu` will be hit!
-
+Shingle filter is used for matching entity key which means;
+```
+entity_synonym -> Erhan Mutlu
+Erhan will not match to below synonym. Erhan Mutlu will be hit!
+```
 
