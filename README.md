@@ -28,6 +28,26 @@ According to above entity object, basically İstanbul and Megakent are `synonym`
 
 `entity_key` shows what this entity is. In this scenario the entity is a city.
 
+2. Intent
+
+An intent refers to sentences system can understand or can make an inference.
+Example;
+
+```json
+{
+    "sentence": "@City hava durumu nasıl olacak",
+    "original_sentence": "@City hava durumu nasıl olacak",
+    "action": "get_weather_by_city",
+    "params": ["@City"]
+}
+```
+
+`sentence` field is used for recognition purpose. It has specific filters and analyzers must defined in elasticsearch. If we look into value of `sentence` in this case, we see @City word. @City is actually a variable(entity), User can say any @City entity to match this sentence.
+
+`original_sentence`: This field is used for creating a new intent as a admin to check if intent is already exist.
+
+`action`: this field refers to the user's purpose. This field should be implemented in [here](https://github.com/erhmutlu/poogle-nlp/tree/master/service/apps/defaultapp/shapers)
+
 ##### Elasticsearch Mapping
 [/service/etc/es/mapping.json](https://github.com/erhmutlu/poogle-nlp/blob/master/service/etc/es/mapping.json)
 
