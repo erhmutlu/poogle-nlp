@@ -153,14 +153,9 @@ user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?"
             "entity_key": "@Month"
         },
         {
-            "entity_synonyms": [16, u'16'],
-            "value": 16,
-            "entity_key": "@Number"
-        },
-        {
-            "entity_synonyms": [45, u'45'],
-            "value": 45,
-            "entity_key": "@Number"
+            "entity_synonyms": ["İstanbul", "Megakent"],
+            "value": "İstanbul",
+            "entity_key": "@City"
         }
     ]
     ```
