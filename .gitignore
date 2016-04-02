@@ -1,0 +1,13 @@
+**.pyc
+db.sqlite3
+db.sqlite3o
+.tmp
+docs
+.tox*
+junit-*.xml
+deploy*.zip
+*.log
+.cache
+.idea
+*.DS_Store
+.coverage

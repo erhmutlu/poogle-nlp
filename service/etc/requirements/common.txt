@@ -1,0 +1,11 @@
+django==1.8.5
+djangorestframework==3.3.2
+django-extensions==1.6.1
+elasticsearch==1.6.0
+elasticsearch-dsl==0.0.9
+djangotoolbox
+psycopg2
+django-rest-auth==0.7.0
+django-cors-headers==1.1.0
+git+ssh://git@github.com/erhmutlu/poogle-auth.git@master
+

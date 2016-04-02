@@ -1,0 +1,104 @@
+{
+	"settings": {
+		"analysis": {
+			"filter": {
+				"turkish_stop": {
+					"type": "stop",
+					"stopwords": "_turkish_"
+				},
+				"turkish_lowercase": {
+					"type": "lowercase",
+					"language": "turkish"
+				},
+				"turkish_stemmer": {
+					"type": "stemmer",
+					"language": "turkish"
+				},
+				"custom_shingle_filter": {
+					"type": "shingle",
+					"max_shingle_size": 3,
+					"min_shingle_size": 2,
+					"output_unigrams": true
+				}
+			},
+			"analyzer": {
+				"turkish_whitespace_analyzer": {
+					"tokenizer": "whitespace",
+					"filter": [
+						"apostrophe",
+						"asciifolding",
+						"turkish_lowercase",
+						"turkish_stop",
+						"turkish_stemmer"
+					]
+				},
+				"entity_synonym_search_analyzer": {
+					"tokenizer": "standard",
+					"type":"custom",
+					"filter": [
+						"turkish_lowercase",
+						"apostrophe",
+						"asciifolding",
+						"custom_shingle_filter",
+						"turkish_stemmer"
+					]
+				},
+				"entity_synonym_index_analyzer": {
+					"type":"custom",
+					"tokenizer": "keyword",
+					"filter": [
+						"turkish_lowercase",
+						"asciifolding",
+						"turkish_stemmer"
+					]
+				}
+			}
+		}
+	},
+	"mappings": {
+		"intent": {
+			"properties": {
+				"sentence": {
+					"type": "string",
+					"analyzer": "turkish_whitespace_analyzer",
+					"include_in_all": true
+				},
+				"original_sentence": {
+          			"type": "string",
+          			"analyzer": "whitespace",
+          			"include_in_all": false
+        		},
+				"action": {
+					"type": "string",
+					"index": "not_analyzed",
+					"include_in_all": false
+				},
+				"params": {
+					"type": "string",
+					"index": "not_analyzed",
+					"include_in_all": false
+				}
+			}
+		},
+		"entity": {
+			"properties": {
+				"entity_synonyms": {
+					"type": "string",
+					"search_analyzer": "entity_synonym_search_analyzer",
+					"index_analyzer": "entity_synonym_index_analyzer",
+					"include_in_all": true
+				},
+				"value": {
+					"type": "string",
+					"include_in_all": false,
+					"index": "not_analyzed"
+				},
+				"entity_key": {
+					"type": "string",
+					"index": "not_analyzed",
+					"include_in_all": false
+				}
+			}
+		}
+	}
+}
