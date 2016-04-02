@@ -90,13 +90,17 @@ Api response:
 
 ###### Deep into Elasticsearch Mapping
 
-1. Shingle Filter
-    
-min:2, max:3
+1. Shingle Filter (min:2, max:3)
 
 Shingle filter is used for matching entity key which means;
 ```
 entity_synonym -> Erhan Mutlu
 Erhan will not match to above synonym. Erhan Mutlu will be hit!
 ```
+
+2. apostrophe Filter
+User can say words with suffix. İstanbul'da and İstanbul words will be matched to İstanbul.
+
+
+
 
