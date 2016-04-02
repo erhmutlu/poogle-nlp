@@ -25,7 +25,7 @@ class EntityViewSet(viewsets.ViewSet):
 
             synonyms = validated.get('entity_synonyms')
             key = validated.get('entity_key')
-            presentation_value = validated.get('presentation_value')
+            value = validated.get('value')
 
             es = Es()
 
@@ -36,7 +36,7 @@ class EntityViewSet(viewsets.ViewSet):
             search_result = QueryExecutor.execute_search(es.client, Entity, boolQuery)
 
             if len(search_result) == 0:
-                e = Entity(entity_synonyms=synonyms, entity_key=key, presentation_value=presentation_value)
+                e = Entity(entity_synonyms=synonyms, entity_key=key, value=value)
                 e.save(using=es.client)
                 return Response(e.dict_with_id(), status=HTTP_201_CREATED)
 
