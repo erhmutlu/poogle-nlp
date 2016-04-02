@@ -176,7 +176,7 @@ user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?"
         
         If any hit, TA DAA! we found matches. Then; `eliminates_intents_with_extra_params` Elasticsearch may hit to some documents with extra params like params["@City","@Number", "@Number", "@Number", "@Month", `"@Number"` ], we MUST eliminate those matches.
             
-            If there is multiple intents left, `find_closest_match` using python difflib library.
+        If there is multiple intents left, `find_closest_match` using python difflib library.
         
         If there is no matched intent, go on with approximate match
     2. Approximate Match
@@ -195,8 +195,57 @@ user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?"
         
         If any hit, TA DAA! we found matches. Then; `eliminates_intents_with_extra_params` Elasticsearch may hit to some documents with extra params like params["@City","@Number", "@Number", "@Number", "@Month", `"@Number"` ], we MUST eliminate those matches.
             
-            If there is multiple intents left, `find_closest_match` using python difflib library.
+        If there is multiple intents left, `find_closest_match` using python difflib library.
         
+3. If found a match reshape response!
+    ```json
+    {
+        "id": u"some_id_here",
+        "action": u"get_weather_by_city_date_hour",
+        "sentence": u"@City @Number @Month saat @Number @Number hava nasıl olacak"
+        "original_sentence": u"@City @Number @Month saat @Number @Number hava nasıl olacak"
+        "params": [u"@City",u"@Number", u"@Number", u"@Number", u"@Month"]
+    }
+    ```
+    
+    put our entities intto response's params field.
+    
+    Result:
+     ```json
+    {
+        "id": u"some_id_here",
+        "action": u"get_weather_by_city_date_hour",
+        "sentence": u"@City @Number @Month saat @Number @Number hava nasıl olacak"
+        "original_sentence": u"@City @Number @Month saat @Number @Number hava nasıl olacak"
+        "params": above_entities_array
+    }
+    ```
+    
+    1. Look in to settings `SHAPER_CLASS_MAPPINGS` if there is a mapping for `get_weather_by_city_date_hour``
         
+        YES ! `{'action': 'get_weather_by_city_date_hour', 'clz': 'Weather'},`
+        
+        Then, we must have `get_weather_by_city_date_hour` method in `Weather` class in `shapers` package.
+        
+        My implementation result is:
+        
+        ```json
+        {
+          "intent": {
+            "action": "get_weather_by_city_date_hour",
+            "params": {
+              "date": "2016-04-03",
+              "city": {
+                "presentation_value": "İstanbul",
+                "value": "İstanbul",
+                "key": "@City"
+              },
+              "hour": "16:45"
+            }
+          },
+          "class": "Weather"
+        }
+        ```
+4. Simple! Return It!
         
     
