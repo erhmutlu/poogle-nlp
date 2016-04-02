@@ -61,7 +61,27 @@ SHAPER_CLASS_MAPPINGS = [
     {'action': 'get_films_released_this_week', 'clz': 'Movie'}
 ]
 ```
+Program looks to `SHAPER_CLASS_MAPPINGS` if intent matches. These shaper classes shape response of the api. For example,
 
+```
+User requests,
+sentence = "İstanbul'da hava durumu nasıl olacak"
+
+Api result,
+{
+  "intent": {
+    "action": "get_weather_by_city",
+    "params": {
+      "city": {
+        "presentation_value": "İstanbul",
+        "value": "İstanbul",
+        "key": "@City"
+      }
+    }
+  },
+  "class": "Weather"
+}
+```
 ##### Elasticsearch Mapping
 [/service/etc/es/mapping.json](https://github.com/erhmutlu/poogle-nlp/blob/master/service/etc/es/mapping.json)
 
