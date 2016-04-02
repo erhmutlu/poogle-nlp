@@ -109,7 +109,7 @@ Api response:
 ##### What about numbers ?
 Indexing all numbers into elasticsearch is not convenient way, I have written a cool tool to detect numbers in sentence. It can be in numberical format, or word format, or mixed.
 
-Now, this tool can detect at most `dokuz yüz doksan dokuz milyon dokuz yüz doksan dokuz bin dokuz yüz doksan dokuz` or its some mixed shape. But it can be developed to higher numbers later. Also, there is now maximum limit to detect if the number contains only digits!
+Now, this tool can detect at most `dokuz yüz doksan dokuz milyon dokuz yüz doksan dokuz bin dokuz yüz doksan dokuz` or its some mixed shape. But it can be developed to higher numbers later. However, there is not maximum limit to detect if the number contains only digits!
 
 
 
