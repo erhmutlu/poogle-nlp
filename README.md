@@ -5,7 +5,7 @@ poogle-nlp is a project for detecting intent from Turkish sentences. I have trie
 
 ##### Requirements
 1. elasticsearch 1.6
-2. [poogle-auth](https://github.com/erhmutlu/poogle-auth) (optional, you can you your own authentication models)
+2. [poogle-auth](https://github.com/erhmutlu/poogle-auth) (optional, you can use your own authentication models)
 3. django 1.8.5, djangorestframework 3.3.2
 4. other requirements can be installed with `pip` from /service/etc/requirements/common.txt
 
