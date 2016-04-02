@@ -26,7 +26,7 @@ class EntityService:
     def __find_number_entities_and_clear_input(user_input):
         numbers = EntityService.__detect_numbers(user_input)
 
-        entities = EntityService.__make_all_numbers_entity_obj(numbers)
+        entities = EntityService.__make_all_numbers_as_entity_obj(numbers)
         user_input = EntityService.__clear_input(numbers, user_input)
 
         return entities, user_input
@@ -37,9 +37,9 @@ class EntityService:
         return numberFinder.find(sentence)
 
     @staticmethod
-    def __make_all_numbers_entity_obj(numbers):
+    def __make_all_numbers_as_entity_obj(numbers):
         entities = [Entity(entity_synonyms=[number.get('digit'), number.get('word')], entity_key='@Number',
-                           presentation_value=number.get('digit')) for number in numbers]
+                           value=number.get('digit')) for number in numbers]
         return entities
 
     @staticmethod

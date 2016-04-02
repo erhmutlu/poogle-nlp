@@ -28,7 +28,7 @@ class IntentRecognitionService:
                 user_input = erase_extra_whitespaces(erased)
 
                 if old.lower() != user_input.lower():
-                    keys.append({'key': match['entity_key'], 'value': match['presentation_value'],
+                    keys.append({'key': match['entity_key'], 'value': match['value'],
                                  'presentation_value': synonym})
                     break
 

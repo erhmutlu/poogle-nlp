@@ -3,7 +3,7 @@
 __author__ = 'erhmutlu'
 
 #TODO this should be added
-# SECRET_KEY = ''
+SECRET_KEY = 'dbx657err4u@70t&=o-e7n^3zm(ayn$pqpq4rln_i6!(ynqs0r'
 
 
 LOCAL_APPS = (
