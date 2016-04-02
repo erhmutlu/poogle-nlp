@@ -173,8 +173,11 @@ user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?"
         query = Q('bool', must=must, should=should, minimum_should_match=len(should))
         ```
         In this query, `@City @Number @Month saat @Number @Number hava nasıl olacak` or some other combinations of words MUST be indexed.
+        
         If any hit, TA DAA! we found matches. Then; `eliminates_intents_with_extra_params` Elasticsearch may hit to some documents with extra params like params["@City","@Number", "@Number", "@Number", "@Month", `"@Number"` ], we MUST eliminate those matches.
+            
             If there is multiple intents left, `find_closest_match` using python difflib library.
+        
         If there is no matched intent, go on with approximate match
     2. Approximate Match
         ```python
@@ -189,7 +192,9 @@ user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?"
         In this query, params is MUST again, but non-entity words are optional with some ratio(.75). For example,
         
         `@City @Number @Month saat @Number @Number hava nasıl olacak`. @City, 3 times @Number and @Month MUST be hit. Other words "saat", "hava", "nasıl", "olacak" may not be in sentence. In this case, .75 ratio is 3 words. Thus 1 word may not be in sentence.
+        
         If any hit, TA DAA! we found matches. Then; `eliminates_intents_with_extra_params` Elasticsearch may hit to some documents with extra params like params["@City","@Number", "@Number", "@Number", "@Month", `"@Number"` ], we MUST eliminate those matches.
+            
             If there is multiple intents left, `find_closest_match` using python difflib library.
         
         
