@@ -200,11 +200,11 @@ user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?"
 3. If found a match reshape response!
     ```json
     {
-        "id": u"some_id_here",
-        "action": u"get_weather_by_city_date_hour",
-        "sentence": u"@City @Number @Month saat @Number @Number hava nasıl olacak"
-        "original_sentence": u"@City @Number @Month saat @Number @Number hava nasıl olacak"
-        "params": [u"@City",u"@Number", u"@Number", u"@Number", u"@Month"]
+        "id": "some_id_here",
+        "action": "get_weather_by_city_date_hour",
+        "sentence": "@City @Number @Month saat @Number @Number hava nasıl olacak",
+        "original_sentence": "@City @Number @Month saat @Number @Number hava nasıl olacak",
+        "params": ["@City","@Number", "@Number", "@Number", "@Month"]
     }
     ```
     
@@ -213,10 +213,10 @@ user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?"
     Result:
      ```json
     {
-        "id": u"some_id_here",
-        "action": u"get_weather_by_city_date_hour",
-        "sentence": u"@City @Number @Month saat @Number @Number hava nasıl olacak"
-        "original_sentence": u"@City @Number @Month saat @Number @Number hava nasıl olacak"
+        "id": "some_id_here",
+        "action": "get_weather_by_city_date_hour",
+        "sentence": "@City @Number @Month saat @Number @Number hava nasıl olacak"
+        "original_sentence": "@City @Number @Month saat @Number @Number hava nasıl olacak"
         "params": above_entities_array
     }
     ```
