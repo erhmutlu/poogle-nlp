@@ -215,9 +215,9 @@ user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?"
     {
         "id": "some_id_here",
         "action": "get_weather_by_city_date_hour",
-        "sentence": "@City @Number @Month saat @Number @Number hava nasıl olacak"
-        "original_sentence": "@City @Number @Month saat @Number @Number hava nasıl olacak"
-        "params": above_entities_array
+        "sentence": "@City @Number @Month saat @Number @Number hava nasıl olacak",
+        "original_sentence": "@City @Number @Month saat @Number @Number hava nasıl olacak",
+        "params": "above_entities_array!!!"
     }
     ```
     
