@@ -46,7 +46,21 @@ Example;
 
 `original_sentence`: This field is used for creating a new intent as a admin to check if intent is already exist.
 
-`action`: this field refers to the user's purpose. This field should be implemented in [here](https://github.com/erhmutlu/poogle-nlp/tree/master/service/apps/defaultapp/shapers)
+`action`: this field refers to the user's purpose. This action should be implemented in some class [here](https://github.com/erhmutlu/poogle-nlp/tree/master/service/apps/defaultapp/shapers), and add reference to settings.
+```python
+SHAPER_CLASS_MAPPINGS = [
+    {'action': 'convert_currency_units', 'clz': 'Currency'},
+    {'action': 'get_weather_by_city', 'clz': 'Weather'},
+    {'action': 'get_weather_by_city_hour', 'clz': 'Weather'},
+    {'action': 'get_weather_by_city_date', 'clz': 'Weather'},
+    {'action': 'get_weather_by_city_date_hour', 'clz': 'Weather'},
+    {'action': 'get_teams_match_score', 'clz': 'Score'},
+    {'action': 'get_matches_of_week', 'clz': 'Score'},
+    {'action': 'get_films_release_soon', 'clz': 'Movie'},
+    {'action': 'get_films_released_already', 'clz': 'Movie'},
+    {'action': 'get_films_released_this_week', 'clz': 'Movie'}
+]
+```
 
 ##### Elasticsearch Mapping
 [/service/etc/es/mapping.json](https://github.com/erhmutlu/poogle-nlp/blob/master/service/etc/es/mapping.json)
