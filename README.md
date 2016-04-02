@@ -5,7 +5,7 @@ poogle-nlp is a project for detecting intent from Turkish sentences. I have trie
 
 ##### Requirements
 1. elasticsearch 1.6
-2. poogle-auth (https://github.com/erhmutlu/poogle-auth)
+2. [poogle-auth](https://github.com/erhmutlu/poogle-auth) (optional, you can use your own authentication models)
 3. django 1.8.5, djangorestframework 3.3.2
 4. other requirements can be installed with `pip` from /service/etc/requirements/common.txt
 
@@ -120,8 +120,10 @@ I will tell the algorithm by showing an example.
 user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?" 
 ```
 1. Clear Input
-    Clear punctiation signs(:.,?)
-    Clear extra whitespaces "  " -> " "
+    
+    Clear punctiation signs(:.,?')
+    
+    Clear extra whitespaces
 1. Detect Entities
     1. Firstly Detect Numbers
         ```
