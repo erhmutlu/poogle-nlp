@@ -124,38 +124,74 @@ user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?"
     Clear extra whitespaces "  " -> " "
 1. Detect Entities
     1. Firstly Detect Numbers
-    ```
-    [
-        {
-            "entity_synonyms": [3, u'3'],
-            "value": 3,
-            "entity_key": "@Number"
-        },
-        {
-            "entity_synonyms": [16, u'16'],
-            "value": 16,
-            "entity_key": "@Number"
-        },
-        {
-            "entity_synonyms": [45, u'45'],
-            "value": 45,
-            "entity_key": "@Number"
-        }
-    ]
-    ```
+        ```
+        [
+            {
+                "entity_synonyms": [3, u'3'],
+                "value": 3,
+                "entity_key": "@Number"
+            },
+            {
+                "entity_synonyms": [16, u'16'],
+                "value": 16,
+                "entity_key": "@Number"
+            },
+            {
+                "entity_synonyms": [45, u'45'],
+                "value": 45,
+                "entity_key": "@Number"
+            }
+        ]
+        ```
     
     2. Detect Entities using Elasticsearch
-    ```
-    [
-        {
-            "entity_synonyms": ["Nisan"],
-            "value": 4,
-            "entity_key": "@Month"
-        },
-        {
-            "entity_synonyms": ["İstanbul", "Megakent"],
-            "value": "İstanbul",
-            "entity_key": "@City"
-        }
-    ]
-    ```
+        ```
+        [
+            {
+                "entity_synonyms": ["Nisan"],
+                "value": 4,
+                "entity_key": "@Month"
+            },
+            {
+                "entity_synonyms": ["İstanbul", "Megakent"],
+                "value": "İstanbul",
+                "entity_key": "@City"
+            }
+        ]
+        ```
+1. Eliminate entities from sentence
+    entities will be used for query to `params` field of an intent. Non-entity part of sentence will be used for query to `sentence` field of an intent.
+1. Query to Elasticsearch for Intent
+    First Simple Rule:
+        Entities MUST be match to params of intent.
+        Other non-entity words MAY match or NOT.
+    1. Exact Match
+        ```python
+        must = [Q('match', params=entity['key']) for entity in entities] if entities is not None else []
+        should = [Q('match', sentence={"query": user_input, "operator": "and"})]
+
+        query = Q('bool', must=must, should=should, minimum_should_match=len(should))
+        ```
+        In this query, `@City @Number @Month saat @Number @Number hava nasıl olacak` or some other combinations of words MUST be indexed.
+        If any hit, TA DAA! we found matches. Then; `eliminates_intents_with_extra_params` Elasticsearch may hit to some documents with extra params like params["@City","@Number", "@Number", "@Number", "@Month", `"@Number"` ], we MUST eliminate those matches.
+            If there is multiple intents left, `find_closest_match` using python difflib library.
+        If there is no matched intent, go on with approximate match
+    2. Approximate Match
+        ```python
+        inputs = perform_whitespace_tokenizer(user_input)
+        should = [Q('match', sentence=input.strip()) for input in inputs]
+        must = [Q('match', params=entity['key']) for entity in entitys] if entitys is not None else []
+        
+        min_should_match = IntentRecognitionService.__calculate_min_should_match(should)
+        query = Q('bool', must=must, should=should, minimum_should_match=min_should_match)
+        ```
+        
+        In this query, params is MUST again, but non-entity words are optional with some ratio(.75). For example,
+        
+        `@City @Number @Month saat @Number @Number hava nasıl olacak`. @City, 3 times @Number and @Month MUST be hit. Other words "saat", "hava", "nasıl", "olacak" may not be in sentence. In this case, .75 ratio is 3 words. Thus 1 word may not be in sentence.
+        If any hit, TA DAA! we found matches. Then; `eliminates_intents_with_extra_params` Elasticsearch may hit to some documents with extra params like params["@City","@Number", "@Number", "@Number", "@Month", `"@Number"` ], we MUST eliminate those matches.
+            If there is multiple intents left, `find_closest_match` using python difflib library.
+        
+        
+        
+    
