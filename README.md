@@ -120,7 +120,7 @@ I will tell the algorithm by showing an example.
 user request = "İstanbul'da 3 Nisan'da saat 16.45'te hava nasıl olacak ?" 
 ```
 1. Clear Input
-    Clear punctiation signs(:.,?)
+    Clear punctiation signs(:.,?')
     Clear extra whitespaces "  " -> " "
 1. Detect Entities
     1. Firstly Detect Numbers
