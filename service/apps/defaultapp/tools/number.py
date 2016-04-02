@@ -2,7 +2,7 @@
 
 import re
 from apps.defaultapp.tools.str import can_convert_to_int, erase_matched_words, erase_extra_whitespaces, \
-    erase_beginning_to_matched_word, erase_matched_word_to_end, is_blank_or_none
+    erase_beginning_to_matched_word, erase_matched_word_to_end, is_blank_or_none, erase_punctuation_signs
 from django.conf import settings
 import operator
 from Queue import Queue
@@ -17,7 +17,8 @@ class NumberFinder:
 
     def find(self, sentence):
         original = sentence
-        founds = self.__internal_find(sentence)
+        without_puncs = erase_punctuation_signs(sentence)
+        founds = self.__internal_find(without_puncs)
         if len(founds) > 1:
             founds = self.__sort_founds(original, founds)
         return founds
@@ -299,8 +300,8 @@ class NumberFinderHelper:
         result = re.search(settings.REGEX_TWO_DIGITS, sentence)
         if result is not None:
             tens_str = result.group()
-            if can_convert_to_int(tens_str):
-                return int(tens_str), tens_str
+            # if can_convert_to_int(tens_str):
+            #     return int(tens_str), tens_str
 
             if NumberFinderHelper.is_prefix_whitespace(sentence, tens_str) and NumberFinderHelper.is_postfix_correct(sentence, tens_str):
                 return NumberMapper.map_str_to_digit(tens_str), tens_str
@@ -312,7 +313,6 @@ class NumberFinderHelper:
 
         if result is not None:
             digits_str = result.group()
-            NumberFinderHelper.is_postfix_correct(sentence, digits_str)
 
             if NumberFinderHelper.is_prefix_whitespace(sentence, digits_str) and NumberFinderHelper.is_postfix_correct(sentence, digits_str):
                 return NumberMapper.map_str_to_digit(digits_str), digits_str
@@ -367,13 +367,14 @@ class NumberFinderHelper:
 class NumberMapper:
     @staticmethod
     def map_str_to_digit(number_str):
-        mappings = getattr(settings, 'NUMBER_MAPPING')
-
         try:
-            search = int(number_str)
+            digit = int(number_str)
+            return digit
         except Exception:
             search = number_str
 
-        match = filter(lambda x: x['word'] == search or x['digit'] == search, mappings)
-        if len(match) == 1:
-            return match[0]['digit']
+            mappings = getattr(settings, 'NUMBER_MAPPING')
+            match = filter(lambda x: x['word'] == search or x['digit'] == search, mappings)
+            if len(match) == 1:
+                return match[0]['digit']
+            raise Exception('mapping not found')

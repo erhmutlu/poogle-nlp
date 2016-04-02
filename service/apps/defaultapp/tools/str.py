@@ -13,7 +13,10 @@ def erase_extra_whitespaces(str):
 
 def erase_punctuation_signs(str):
     regex = re.compile('[:\.\?,]+')
-    return regex.sub(' ', str.lower()).strip()
+    tmp = regex.sub(' ', str.lower()).strip()
+
+    regex = re.compile("\'[A-Za-z]+")
+    return regex.sub('', str)
 
 
 def erase_matched_words(sentence, searched):
