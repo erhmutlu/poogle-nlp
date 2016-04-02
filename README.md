@@ -98,9 +98,13 @@ entity_synonym -> Erhan Mutlu
 Erhan will not match to above synonym. Erhan Mutlu will be hit!
 ```
 
-2. apostrophe Filter
+2. Apostrophe Filter
+
 User can say words with suffix. İstanbul'da and İstanbul words will be matched to İstanbul.
 
+3. Turkish Stemmer Filter
+4. Turkish Lowercase Filter
+5. Asciifolding Filter
 
 
 
