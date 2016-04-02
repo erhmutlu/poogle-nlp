@@ -82,6 +82,9 @@ Api response:
   "class": "Weather"
 }
 ```
+
+`params` field refers entities insided `sentence`.
+
 ##### Elasticsearch Mapping
 [/service/etc/es/mapping.json](https://github.com/erhmutlu/poogle-nlp/blob/master/service/etc/es/mapping.json)
 
