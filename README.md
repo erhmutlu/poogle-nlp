@@ -46,7 +46,7 @@ Example;
 
 `original_sentence`: This field is used for creating a new intent as a admin to check if intent is already exist.
 
-`action`: this field refers to the user's purpose. This action should be implemented in some class [here](https://github.com/erhmutlu/poogle-nlp/tree/master/service/apps/defaultapp/shapers), and add reference to settings.
+`action`: this field refers to the user's purpose. This action should be implemented in some class [here](https://github.com/erhmutlu/poogle-nlp/tree/master/service/apps/defaultapp/shapers), and should be added reference into settings.
 ```python
 SHAPER_CLASS_MAPPINGS = [
     {'action': 'convert_currency_units', 'clz': 'Currency'},
@@ -64,10 +64,10 @@ SHAPER_CLASS_MAPPINGS = [
 Program looks to `SHAPER_CLASS_MAPPINGS` if intent matches. These shaper classes shape response of the api. For example,
 
 ```
-User requests,
+User requests:
 sentence = "İstanbul'da hava durumu nasıl olacak"
 
-Api result,
+Api response:
 {
   "intent": {
     "action": "get_weather_by_city",
